@@ -1,0 +1,151 @@
+/*handlers for toggling different elements*/
+var handlers;
+
+/* heading */
+var h = "Gettysburg Address";
+
+/* Paragraphs */
+var ps = getAddress();
+
+
+
+
+
+
+
+/**
+ * Write Title and Paragraphs to Page. By swapping out variable values above, this 
+ * could easily display almost any text in the same format.
+ * 
+ * @param void
+ * @return void
+ */
+function onLoad()
+{
+  var gadd = document.getElementById("paragraphs");
+  document.getElementById("heading").innerHTML = h;
+  for(var i in ps)
+  {
+    var node = document.createElement("dt");
+    
+    var icon = document.createElement("img");
+    icon.id = "icon_" + i;
+    icon.onclick = handlers[i];
+    icon.src = "images/expand.gif";
+    icon.style.width = "15px";
+    icon.style.height = "15px";
+    icon.style.verticalAlign = "text-top";
+    node.appendChild(icon);
+
+    var head = document.createElement("h2");
+    var nodeText = document.createTextNode("Paragraph " + (i * 1 + 1));
+    head.appendChild(nodeText);
+    node.appendChild(head);
+
+    gadd.appendChild(node);
+    
+
+    gadd.appendChild(initializeParagraph(i));
+  }
+  
+}
+
+/**
+ * Create and populate paragraph display.
+ * 
+ * @param {integer} i the index of the paragraph
+ * @returns {__node1} a <code>dd</code> element containing a blockquote.
+ */
+function initializeParagraph(i)
+{
+  var node = document.createElement("dd");
+  node.id = "dd_" + i;
+  var paragraph = document.createElement("blockquote");
+  paragraph.id = "blockquote_" + i;
+  var paragraphText = document.createTextNode(abbreviatedText(ps[i]));
+  paragraph.appendChild(paragraphText);
+  node.appendChild(paragraph);
+  
+  return node;
+}
+
+/**
+ * Expand or minimize paragraph #i.
+ * 
+ * @param {integer} i - the index of the paragraph
+ * @returns {void}
+ */
+function toggleText(i)
+{
+  var node = document.getElementById("blockquote_" + i);
+  var full = ps[i];
+  var icon = document.getElementById("icon_"+i);
+  node.innerHTML = full != node.innerHTML ? full : abbreviatedText(full);
+  icon.src = full != node.innerHTML ? "images/expand.gif" : "images/minimize.gif";
+}
+
+/**
+ * find the abbreviated text. By abbreviated, I mean the first 9 words followed by '...'.
+ * 
+ * @param {string} text - the full text of the paragraph.
+ * @returns {string} out - the first 9 words followed by '...'.
+ */
+function abbreviatedText(text)
+{
+  var pArray = text.split(" ");
+  var out = "";
+  for(var i = 0; i < 9; i++)
+  {
+    out += pArray[i] + " ";
+  }
+  
+  out = out.substring(0, out.length-1)+"...";
+  return out;
+}
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Object not found!</title>
+<link rev="made" href="mailto:postmaster@localhost" />
+<style type="text/css"><!--/*--><![CDATA[/*><!--*/ 
+    body { color: #000000; background-color: #FFFFFF; }
+    a:link { color: #0000CC; }
+    p, address {margin-left: 3em;}
+    span {font-size: smaller;}
+/*]]>*/--></style>
+</head>
+
+<body>
+<h1>Object not found!</h1>
+<p>
+
+
+    The requested URL was not found on this server.
+
+  
+
+    If you entered the URL manually please check your
+    spelling and try again.
+
+  
+
+</p>
+<p>
+If you think this is a server error, please contact
+the <a href="mailto:postmaster@localhost">webmaster</a>.
+
+</p>
+
+<h2>Error 404</h2>
+<address>
+  <a href="/">localhost</a><br />
+  <span>Apache/2.4.7 (Win32) OpenSSL/1.0.1e PHP/5.5.9</span>
+</address>
+</body>
+</html>
+
